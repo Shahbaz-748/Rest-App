@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:rest_app/CartScreen.dart';
 import 'MenuScreen.dart';
 import 'FavoritesScreen.dart';
-
+import 'MealsCard.dart';
 
 class TabScreen extends StatefulWidget {
+
+
   @override
   _TabScreenState createState() => _TabScreenState();
 }
@@ -13,14 +15,18 @@ class _TabScreenState extends State<TabScreen> {
 
  int index=0;
 
- List<Widget> _screens= [
-   MenuScreen(),
-   FavoritesScreen(),
-   CartScreen()
+ List<Widget> _screens;
 
- ];
+@override
+  void initState() {
+    _screens=[
+      MenuScreen(),
+      FavoritesScreen(),
+      CartScreen()
 
-
+    ];
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
