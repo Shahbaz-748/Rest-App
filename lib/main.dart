@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'TabScreen.dart';
+import 'package:rest_app/MenuScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import './models/items.dart';
 
 void main () async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,11 +18,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Restaurant App ',
-      theme: ThemeData.dark(),
-      home: TabScreen(),
+    return ChangeNotifierProvider<Items>(
+      create: (ctx)=>Items() ,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MenuScreen(),
+        routes: {
+
+        },
+      ),
     );
   }
 }
