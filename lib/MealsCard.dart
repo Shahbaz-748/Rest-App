@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rest_app/CartScreen.dart';
 import './models/items.dart';
-import 'package:hover_effect/hover_effect.dart';
+import './models/cart.dart';
 
 
 
@@ -16,10 +17,11 @@ class MealsCard extends StatelessWidget {
 
 
   final item=Provider.of<Item>(context);
+  final cart=Provider.of<Cart>(context);
 
 
 
-    return Container(
+  return Container(
 
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
       decoration: BoxDecoration(
@@ -64,13 +66,40 @@ class MealsCard extends StatelessWidget {
                 icon: Icon(Icons.favorite),
                 color: item.isfav ? Colors.red : Colors.grey,
                 onPressed: () {
+                  Scaffold.of(context).hideCurrentSnackBar();
                   item.toggleFavourite();
+                  if(item.isfav){
+
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text("${item.name} added to favourites!",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      backgroundColor: Colors.black87,
+                      action: SnackBarAction(
+                        label: "UNDO",
+                        onPressed: (){
+                          item.toggleFavourite();
+                        },
+                      ),
+                    ),
+                    );
+                  }
+
                 },
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart),
                 color: Colors.pink[500],
-                onPressed: () {},
+                onPressed: () {
+                         //add to cart
+
+                  cart.addCart(item.id, item.price, item.imgUrl, item.name);
+
+                },
               ),
             ],
           ),
